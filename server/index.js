@@ -17,11 +17,15 @@ const { authenticateToken } = require('./utilities');
 
 app.use(express.json());
 
-app.use(
-    cors({
-        origin:"https://notesmvp.netlify.app",
-    })
-);
+app.use(cors({
+    origin: 'https://notesmvp.netlify.app',  // Replace this with your Netlify domain
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true  // If using credentials such as cookies or tokens
+  }));
+  
+  // To handle preflight requests
+  app.options('*', cors());
 
 app.get("/", (req, res) => {
     res.json({ data: "hello" });
